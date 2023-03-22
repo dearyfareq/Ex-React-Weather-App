@@ -26,6 +26,27 @@ function App() {
     }
   };
 
+  // Get current date and time
+var today = new Date();
+
+// Get hours and minutes from date object
+var hours = today.getHours();
+var minutes = today.getMinutes();
+
+// Set AM/PM based on hour value
+var ampm = hours >= 12 ? 'PM' : 'AM';
+
+// Convert hours to 12-hour format
+hours = hours % 12;
+hours = hours ? hours : 12; // If hour is 0, set to 12
+
+// Add leading zeros to minutes if needed
+minutes = minutes < 10 ? '0' + minutes : minutes;
+
+// Build formatted time string
+var time = hours + ':' + minutes + ' ' + ampm;
+
+
   return (
     <div className="App">
       <input 
@@ -35,17 +56,17 @@ function App() {
       onChange={ (e) => setLocation(e.target.value)}
       onKeyPress={search}/>
       <div>
-        <h2>dallas</h2>
+        <h2>{data.name}</h2>
       </div>
       <div>
-        <h1>200f</h1>
-        <h2>weather</h2>
+        <h1>{data.main.temp}K</h1>
+        <h2>{data.weather[0].main}</h2>
       </div>
       <div>
-        <h2>discription</h2>
+        <h2>{data.weather[0].description}</h2>
       </div>
       <div>
-        <h2>time</h2>
+        <h2>{time}</h2>
       </div>
     </div>
   );
