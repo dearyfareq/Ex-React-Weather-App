@@ -55,6 +55,7 @@ function App() {
   //main display html, using ternary conditions
   return (
     <div className="App">
+      <div className="container">
       <input
         placeholder="City Name"
         type="text"
@@ -62,19 +63,20 @@ function App() {
         onChange={(e) => setLocation(e.target.value)}
         onKeyPress={search}
       />
-      <div>
+      <div className="city-name">
         <h2>{data.name}</h2>
       </div>
-      <div>
+      <div className="temp-weather">
         {/*using conditions for data, if the fetched data has data.main then access the data inside as such*/}
         {data.main ? <h1>{data.main.temp}K</h1> : null}
-        {data.weather ? <h2>{data.weather[0].main}</h2> : null}
+        {data.weather ? <img src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} /> : null}
       </div>
       <div>
-        {data.weather ? <h2>{data.weather[0].description}</h2> : null}
+        
       </div>
-      <div>
-        <h2>{time}</h2>
+      <div className="description">
+      {data.weather ? <h2>{time}</h2>  : null} {data.weather ? <h2>{data.weather[0].description}</h2> : null}
+      </div>
       </div>
     </div>
   );
