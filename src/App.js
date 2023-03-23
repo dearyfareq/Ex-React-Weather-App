@@ -1,16 +1,24 @@
+//import useState for functionallity
+//import axios to handle the timing and http requests
 import "./App.css";
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
 
+//main function for the website
 function App() {
+
+  //two useStates, one for labeling the data.json and one for setting the location
   const [location, setLocation] = useState("");
   const [data, setData] = useState({});
 
+  //openWeather API url for data, key is hardwritten and location is a variable using useState
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=c502a780facdc9c4209fe14bcca49d99`;
 
+  //main function for searching IF the button pressed is enter!
   const search = (event) => {
     if (event.key === "Enter") {
+      //run axios and then set the data useState
       axios
         .get(url)
         .then((responce) => {
@@ -44,6 +52,7 @@ function App() {
   // Build formatted time string
   var time = hours + ":" + minutes + " " + ampm;
 
+  //main display html, using ternary conditions
   return (
     <div className="App">
       <input
@@ -57,6 +66,7 @@ function App() {
         <h2>{data.name}</h2>
       </div>
       <div>
+        {/*using conditions for data, if the fetched data has data.main then access the data inside as such*/}
         {data.main ? <h1>{data.main.temp}K</h1> : null}
         {data.weather ? <h2>{data.weather[0].main}</h2> : null}
       </div>
