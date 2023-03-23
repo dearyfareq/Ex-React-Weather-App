@@ -11,6 +11,7 @@ function App() {
   //two useStates, one for labeling the data.json and one for setting the location
   const [location, setLocation] = useState("");
   const [data, setData] = useState({});
+  const [loading, setLoading] = useState(false);
 
   //openWeather API url for data, key is hardwritten and location is a variable using useState
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=c502a780facdc9c4209fe14bcca49d99`;
@@ -18,16 +19,19 @@ function App() {
   //main function for searching IF the button pressed is enter!
   const search = (event) => {
     if (event.key === "Enter") {
+      setLoading(true);
       //run axios and then set the data useState
       axios
         .get(url)
         .then((responce) => {
           setData(responce.data);
           console.log(responce.data);
+          setLoading(false);
         })
         .catch(function (error) {
           // handle error
           console.log(error);
+          setLoading(false);
         });
     }
   };
@@ -72,11 +76,11 @@ function App() {
         {data.weather ? <img src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} /> : null}
       </div>
       <div>
-        
       </div>
       <div className="description">
       {data.weather ? <h2>{time}</h2>  : null} {data.weather ? <h2>{data.weather[0].description}</h2> : null}
       </div>
+      {loading? <span class="loader"></span> : null}
       </div>
     </div>
   );
